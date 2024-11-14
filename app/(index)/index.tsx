@@ -13,12 +13,8 @@ import { label, systemGray2 } from "@bacons/apple-colors";
 import { BodyScrollView } from "@/components/ui/BodyScrollView";
 import { useHeaderSearch } from "@/hooks/useHeaderSearch";
 
-import { useAnimatedHeaderHeight } from "@react-navigation/native-stack";
-import { useBottomTabOverflow } from "@/components/ui/TabBarBackground";
 function Empty() {
-  const headerHeight = useAnimatedHeaderHeight();
   const { height } = useWindowDimensions();
-  const footer = useBottomTabOverflow();
   return (
     <View
       style={{
