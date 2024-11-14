@@ -11,6 +11,10 @@ export function useHeaderSearch(options: Omit<SearchBarProps, "ref"> = {}) {
   useEffect(() => {
     const interceptedOptions: SearchBarProps = {
       ...options,
+      onChangeText(event) {
+        setSearch(event.nativeEvent.text);
+        options.onChangeText?.(event);
+      },
       onSearchButtonPress(e) {
         setSearch(e.nativeEvent.text);
         options.onSearchButtonPress?.(e);
