@@ -7,7 +7,7 @@ import { ActivityIndicator } from "react-native";
 export { ErrorBoundary } from "expo-router";
 
 export default function Movie() {
-  const { id } = useLocalSearchParams();
+  const { id } = useLocalSearchParams<{ id: string }>();
 
   const screen = useMemo(() => renderMovie(id), [id]);
 

@@ -4,7 +4,7 @@ import { forwardRef } from "react";
 import { ScrollView, ScrollViewProps } from "react-native";
 import { useBottomTabOverflow } from "./TabBarBackground";
 
-export const BodyScrollView = forwardRef<ScrollViewProps, any>((props, ref) => {
+export const BodyScrollView = forwardRef<any, ScrollViewProps>((props, ref) => {
   const paddingBottom = useBottomTabOverflow();
   return (
     <ScrollView

@@ -1,19 +1,17 @@
 "use server";
 
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, View } from "react-native";
 
 import * as AC from "@bacons/apple-colors";
-import { BodyScrollView } from "./ui/BodyScrollView";
 import { Link } from "expo-router";
 import TouchableBounce from "./ui/TouchableBounce";
 
 async function getMovies(query = "") {
   const API_KEY = process.env.TMDB_API_KEY;
-  const BASE_URL = "https://api.themoviedb.org/3";
 
   try {
     const response = await fetch(
-      `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(
+      `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(
         query
       )}`
     );
