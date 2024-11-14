@@ -34,7 +34,7 @@ export async function renderHome(query: string) {
 
   // Render list of pokemon
   return (
-    <BodyScrollView contentContainerStyle={{ padding: 16 }}>
+    <>
       {movies.map((movie: any) => (
         <View
           key={movie.id}
@@ -108,6 +108,6 @@ export async function renderHome(query: string) {
           </View>
         </View>
       ))}
-    </BodyScrollView>
+    </>
   );
 }
