@@ -1,9 +1,11 @@
 "use server";
 
-import { Image, ScrollView, Text, View } from "react-native";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import * as AC from "@bacons/apple-colors";
 import { BodyScrollView } from "./ui/BodyScrollView";
+import { Link } from "expo-router";
+import TouchableBounce from "./ui/TouchableBounce";
 
 async function getMovies(query = "") {
   const API_KEY = process.env.TMDB_API_KEY;
@@ -36,77 +38,84 @@ export async function renderHome(query: string) {
   return (
     <>
       {movies.map((movie: any) => (
-        <View
-          key={movie.id}
-          style={{
-            marginBottom: 16,
-            borderWidth: 1,
-            borderColor: AC.separator,
-            backgroundColor: AC.secondarySystemGroupedBackground,
-            borderRadius: 8,
-            overflow: "hidden",
-          }}
-        >
-          <View
-            style={{
-              padding: 16,
-            }}
-          >
-            <Text style={{ fontSize: 18, fontWeight: "bold", color: AC.label }}>
-              {movie.title}
-            </Text>
-          </View>
-          {movie.poster_path && (
-            <Image
-              source={{
-                uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
-              }}
-              style={{ width: "100%", height: 200, resizeMode: "cover" }}
-            />
-          )}
-          <View style={{ padding: 16 }}>
-            <Text
-              style={{
-                fontSize: 14,
-                color: AC.secondaryLabel,
-                marginBottom: 8,
-              }}
-            >
-              Release Date: {movie.release_date}
-            </Text>
-            <Text style={{ fontSize: 14, color: AC.label, marginBottom: 8 }}>
-              {movie.overview}
-            </Text>
+        <Link asChild key={movie.id} href={`/movie/${movie.id}`}>
+          <TouchableBounce>
             <View
               style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
+                marginBottom: 16,
+                borderWidth: 1,
+                borderColor: AC.separator,
+                backgroundColor: AC.secondarySystemGroupedBackground,
+                borderRadius: 8,
+                overflow: "hidden",
               }}
             >
-              <Text
+              <View
                 style={{
-                  padding: 4,
-                  backgroundColor: "#e0f7fa",
-                  color: AC.systemTeal,
-                  borderRadius: 4,
+                  padding: 16,
                 }}
               >
-                Rating: {movie.vote_average.toFixed(1)}/10
-              </Text>
-              <Text
-                style={{
-                  padding: 4,
-                  backgroundColor: "#e8f5e9",
-                  color: AC.systemGreen,
-                  borderRadius: 4,
-                }}
-              >
-                Votes: {movie.vote_count}
-              </Text>
+                <Text
+                  style={{ fontSize: 18, fontWeight: "bold", color: AC.label }}
+                >
+                  {movie.title}
+                </Text>
+              </View>
+              {movie.poster_path && (
+                <Image
+                  source={{
+                    uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+                  }}
+                  style={{ width: "100%", height: 200, resizeMode: "cover" }}
+                />
+              )}
+              <View style={{ padding: 16 }}>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: AC.secondaryLabel,
+                    marginBottom: 8,
+                  }}
+                >
+                  Release Date: {movie.release_date}
+                </Text>
+                <Text
+                  style={{ fontSize: 14, color: AC.label, marginBottom: 8 }}
+                >
+                  {movie.overview}
+                </Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Text
+                    style={{
+                      padding: 4,
+                      backgroundColor: "#e0f7fa",
+                      color: AC.systemTeal,
+                      borderRadius: 4,
+                    }}
+                  >
+                    Rating: {movie.vote_average.toFixed(1)}/10
+                  </Text>
+                  <Text
+                    style={{
+                      padding: 4,
+                      backgroundColor: "#e8f5e9",
+                      color: AC.systemGreen,
+                      borderRadius: 4,
+                    }}
+                  >
+                    Votes: {movie.vote_count}
+                  </Text>
+                </View>
+              </View>
             </View>
-          </View>
-        </View>
+          </TouchableBounce>
+        </Link>
       ))}
     </>
   );

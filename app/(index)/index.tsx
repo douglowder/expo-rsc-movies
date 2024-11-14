@@ -1,67 +1,58 @@
 /// <reference types="react/canary" />
-import { ActivityIndicator, Text, View, ViewBase } from "react-native";
+import {
+  ActivityIndicator,
+  Text,
+  useWindowDimensions,
+  View,
+} from "react-native";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { renderHome } from "@/components/actions";
-import { useNavigation } from "expo-router";
-import { SearchBarProps } from "react-native-screens";
 import { IconSymbol } from "@/components/ui/IconSymbol";
-import { label } from "@bacons/apple-colors";
+import { label, systemGray2 } from "@bacons/apple-colors";
 import { BodyScrollView } from "@/components/ui/BodyScrollView";
+import { useHeaderSearch } from "@/hooks/useHeaderSearch";
 
-function useHeaderSearch(options: Omit<SearchBarProps, "ref"> = {}) {
-  const [search, setSearch] = useState("");
-  const navigation = useNavigation();
-
-  useEffect(() => {
-    const interceptedOptions: SearchBarProps = {
-      ...options,
-      onSearchButtonPress(e) {
-        setSearch(e.nativeEvent.text);
-        options.onSearchButtonPress?.(e);
-      },
-      onCancelButtonPress(e) {
-        setSearch("");
-        options.onCancelButtonPress?.(e);
-      },
-    };
-
-    navigation.setOptions({
-      headerShown: true,
-      headerSearchBarOptions: interceptedOptions,
-    });
-  }, [options]);
-
-  return search;
+import { useAnimatedHeaderHeight } from "@react-navigation/native-stack";
+import { useBottomTabOverflow } from "@/components/ui/TabBarBackground";
+function Empty() {
+  const headerHeight = useAnimatedHeaderHeight();
+  const { height } = useWindowDimensions();
+  const footer = useBottomTabOverflow();
+  return (
+    <View
+      style={{
+        height: height,
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 12,
+          paddingVertical: 24,
+        }}
+      >
+        <IconSymbol
+          name="magnifyingglass.circle"
+          color={systemGray2}
+          size={100}
+        />
+        <Text style={{ color: systemGray2, fontSize: 24, fontWeight: "600" }}>
+          Search for movies
+        </Text>
+      </View>
+    </View>
+  );
 }
 
 export default function HomeScreen() {
   const text = useHeaderSearch();
 
   if (!text) {
-    return (
-      <BodyScrollView
-        contentContainerStyle={{
-          height: 360,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <View
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 12,
-            paddingVertical: 24,
-          }}
-        >
-          <IconSymbol name="magnifyingglass.circle" color={label} size={100} />
-          <Text style={{ color: label, fontSize: 24, fontWeight: "bold" }}>
-            Search for movies
-          </Text>
-        </View>
-      </BodyScrollView>
-    );
+    return <Empty />;
   }
 
   return (
