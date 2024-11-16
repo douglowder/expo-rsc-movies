@@ -5,7 +5,7 @@ import { StyleSheet, Text } from "react-native";
 export default function TabTwoScreen() {
   return (
     <BodyScrollView>
-      <Text style={{ color: label }}>Hello</Text>
+      <Text style={{ color: label }}>TODO</Text>
     </BodyScrollView>
   );
 }

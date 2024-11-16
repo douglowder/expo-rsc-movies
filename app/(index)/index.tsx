@@ -7,7 +7,7 @@ import {
 } from "react-native";
 
 import React from "react";
-import { renderHome, renderTrendingMovies, renderTrendingShows } from "@/components/actions";
+import { renderSearchContents, renderTrendingMovies, renderTrendingShows } from "@/components/render-search";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { label, systemGray2 } from "@bacons/apple-colors";
 import { BodyScrollView } from "@/components/ui/BodyScrollView";
@@ -49,7 +49,7 @@ export default function HomeScreen() {
     placeholder: "Shows, Movies, and More",
   });
 
-  if (!text) {
+  if (!text || text.length < 2) {
     return (
       <BodyScrollView contentContainerStyle={{ paddingVertical: 16, gap: 2, }}>
         <React.Suspense fallback={<ActivityIndicator color={label} />}>
@@ -65,11 +65,11 @@ export default function HomeScreen() {
   return (
     <BodyScrollView
       contentContainerStyle={{
-        padding: 16,
+        paddingVertical: 16,
       }}
     >
       <React.Suspense fallback={<ActivityIndicator color={label} />}>
-        {renderHome(text)}
+        {renderSearchContents(text)}
       </React.Suspense>
     </BodyScrollView>
   );

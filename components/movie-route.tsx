@@ -6,6 +6,41 @@ import { Image, ScrollView, Text, View } from "react-native";
 import TouchableBounce from "@/components/ui/TouchableBounce";
 import React from "react";
 
+
+export async function renderMovie(id: string) {
+  return (
+    <>
+      <Stack.Screen
+        options={{
+          title: "",
+          headerTransparent: true,
+        }}
+      />
+
+      <React.Suspense fallback={<MovieSkeleton />}>
+        <MovieDetails id={id} />
+      </React.Suspense>
+
+      <React.Suspense fallback={<ListSkeleton />}>
+        <MovieVideos id={id} />
+      </React.Suspense>
+
+      <React.Suspense fallback={<ListSkeleton />}>
+        <MovieCast id={id} />
+      </React.Suspense>
+
+      <React.Suspense fallback={<ListSkeleton />}>
+        <MovieCompanies id={id} />
+      </React.Suspense>
+
+      <React.Suspense fallback={<ListSkeleton />}>
+        <SimilarMovies id={id} />
+      </React.Suspense>
+    </>
+  );
+}
+
+
 function HorizontalList({ title, children }: { title: string, children: React.ReactNode }) {
   return (
     <View style={{ marginBottom: 24 }}>
@@ -148,7 +183,6 @@ async function MovieDetails({ id }: { id: string }) {
     <Stack.Screen
         options={{
           title: movie.title,
-          
         }}
       />
 
@@ -254,39 +288,6 @@ async function SimilarMovies({ id }: { id: string }) {
         <SimilarMovieCard key={movie.id} movie={movie} />
       ))}
     </HorizontalList>
-  );
-}
-
-export async function renderMovie(id: string) {
-  return (
-    <>
-      <Stack.Screen
-        options={{
-          title: "",
-          headerTransparent: true,
-        }}
-      />
-
-      <React.Suspense fallback={<MovieSkeleton />}>
-        <MovieDetails id={id} />
-      </React.Suspense>
-
-      <React.Suspense fallback={<ListSkeleton />}>
-        <MovieVideos id={id} />
-      </React.Suspense>
-
-      <React.Suspense fallback={<ListSkeleton />}>
-        <MovieCast id={id} />
-      </React.Suspense>
-
-      <React.Suspense fallback={<ListSkeleton />}>
-        <MovieCompanies id={id} />
-      </React.Suspense>
-
-      <React.Suspense fallback={<ListSkeleton />}>
-        <SimilarMovies id={id} />
-      </React.Suspense>
-    </>
   );
 }
 

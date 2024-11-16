@@ -54,16 +54,16 @@ export default function RootLayout() {
         <Tabs.Screen
           name="(index)"
           options={{
-            title: "Home",
+            title: "Search",
             tabBarIcon: ({ color }) => (
-              <IconSymbol size={28} name="house.fill" color={color} />
+              <IconSymbol size={28} name="magnifyingglass" color={color} />
             ),
           }}
         />
         <Tabs.Screen
           name="(explore)"
           options={{
-            title: "Explore",
+            title: "Share",
             tabBarIcon: ({ color }) => (
               <IconSymbol size={28} name="paperplane.fill" color={color} />
             ),
