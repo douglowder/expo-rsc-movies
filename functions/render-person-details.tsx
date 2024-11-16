@@ -2,8 +2,10 @@
 
 import TouchableBounce from "@/components/ui/TouchableBounce";
 import { Link } from "expo-router";
-import { Image, Text, View, ScrollView } from "react-native";
+import { Image, Text, View, ScrollView, TouchableOpacity } from "react-native";
 import * as AC from '@bacons/apple-colors'
+import ShowMore from "@/components/ShowMore";
+
 
 
 export async function renderPersonDetails(id: string) {
@@ -68,26 +70,41 @@ export async function renderPersonDetails(id: string) {
           Overview
         </Text>
         
-        <View style={{ marginBottom: 16 }}>
-          {person.birthday && (
-            <Text style={{ color: AC.label }}>
-              Born: {new Date(person.birthday).toLocaleDateString()}
-              {person.place_of_birth && ` in ${person.place_of_birth}`}
-            </Text>
-          )}
-          {person.deathday && (
-            <Text style={{ color: AC.label }}>
-              Died: {new Date(person.deathday).toLocaleDateString()}
-            </Text>
-          )}
+        <View style={{ 
+          backgroundColor: AC.secondarySystemGroupedBackground, 
+          borderRadius: 10,
+          marginBottom: 16
+        }}>
+          {[
+            person.birthday && {
+              label: "Born",
+              value: `${new Date(person.birthday).toLocaleDateString()}${person.place_of_birth ? ` in ${person.place_of_birth}` : ''}`
+            },
+            person.deathday && {
+              label: "Died", 
+              value: new Date(person.deathday).toLocaleDateString()
+            }
+          ].filter(Boolean).map((item, index, array) => (
+            <View 
+              key={item.label}
+              style={{
+                padding: 12,
+                flexDirection: "row",
+                justifyContent: "space-between",
+                borderBottomWidth: index === array.length - 1 ? 0 : 0.5,
+                borderBottomColor: "rgba(120,120,128,0.2)",
+              }}
+            >
+              <Text style={{ fontSize: 16, color: AC.secondaryLabel, flex: 1 }}>{item.label}</Text>
+              <Text numberOfLines={1} style={{ fontSize: 16, color: AC.label, flex: 2 }}>{item.value}</Text>
+            </View>
+          ))}
         </View>
 
-        <Text style={{ 
-          color: AC.label,
-          lineHeight: 20
-        }}>
-          {person.biography}
-        </Text>
+        <View>
+            <ShowMore text={person.biography} />
+          
+        </View>
       </View>
 
       {/* Credits Section */}
@@ -128,6 +145,7 @@ export async function renderPersonDetails(id: string) {
                           : undefined
                       }}
                       style={{
+                        borderRadius: 12,
                         width: "100%",
                         height: 200,
                         backgroundColor: AC.systemGray5

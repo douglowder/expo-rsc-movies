@@ -5,7 +5,7 @@ import { Link, Stack } from "expo-router";
 import { Image, ScrollView, Text, View } from "react-native";
 import TouchableBounce from "@/components/ui/TouchableBounce";
 import React from "react";
-
+import { FadeIn } from "@/components/ui/FadeIn";
 
 export async function renderMovie(id: string) {
   return (
@@ -17,9 +17,9 @@ export async function renderMovie(id: string) {
         }}
       />
 
-      <React.Suspense fallback={<MovieSkeleton />}>
+
         <MovieDetails id={id} />
-      </React.Suspense>
+
 
       <React.Suspense fallback={<ListSkeleton />}>
         <MovieVideos id={id} />
@@ -112,22 +112,24 @@ function VideoCard({ video }: { video: any }) {
 
 function CastCard({ person }: { person: any }) {
   return (
-    <View style={{ width: 100, marginHorizontal: 4 }}>
-      <Image
-        source={{ 
-          uri: person.profile_path 
-            ? `https://image.tmdb.org/t/p/w200${person.profile_path}`
-            : 'https://via.placeholder.com/100x150'
-        }}
-        style={{ width: 100, height: 150, borderRadius: 8 }}
-      />
-      <Text style={{ fontSize: 14, color: label, marginTop: 4 }} numberOfLines={1}>
-        {person.name}
-      </Text>
-      <Text style={{ fontSize: 12, color: label, opacity: 0.7 }} numberOfLines={1}>
-        {person.character}
-      </Text>
-    </View>
+    <Link href={`/person/${person.id}`} asChild>
+      <TouchableBounce style={{ width: 100, marginHorizontal: 4 }}>
+        <Image
+          source={{ 
+            uri: person.profile_path 
+              ? `https://image.tmdb.org/t/p/w200${person.profile_path}`
+              : 'https://via.placeholder.com/100x150'
+          }}
+          style={{ width: 100, height: 150, borderRadius: 8 }}
+        />
+        <Text style={{ fontSize: 14, color: label, marginTop: 4 }} numberOfLines={1}>
+          {person.name}
+        </Text>
+        <Text style={{ fontSize: 12, color: label, opacity: 0.7 }} numberOfLines={1}>
+          {person.character}
+        </Text>
+      </TouchableBounce>
+    </Link>
   );
 }
 
@@ -180,21 +182,26 @@ async function MovieDetails({ id }: { id: string }) {
 
   return (
     <>
-    <Stack.Screen
+      <Stack.Screen
         options={{
           title: movie.title,
         }}
       />
 
+<FadeIn>
       <MovieHero movie={movie} />
+</FadeIn>
 
+      <FadeIn>
       <View style={{ marginBottom: 24, paddingHorizontal: 16 }}>
         <Text style={{ fontSize: 16, color: label, lineHeight: 24 }}>
           {movie.overview}
         </Text>
-      </View>
+        </View>
+      </FadeIn>
 
-      <View style={{ marginBottom: 24, paddingHorizontal: 16 }}>
+      <FadeIn>
+        <View style={{ marginBottom: 24, paddingHorizontal: 16 }}>
         <Text style={{ fontSize: 20, fontWeight: "600", color: label, marginBottom: 12 }}>
           About
         </Text>
@@ -223,8 +230,9 @@ async function MovieDetails({ id }: { id: string }) {
               <Text style={{ fontSize: 16, color: label, flex: 2 }}>{item.value}</Text>
             </View>
           ))}
+          </View>
         </View>
-      </View>
+      </FadeIn>
     </>
   );
 }

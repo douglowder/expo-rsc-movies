@@ -4,7 +4,8 @@ import { Image, ScrollView, Text, View } from "react-native";
 import React from "react";
 import * as AC from "@bacons/apple-colors";
 import { Link } from "expo-router";
-import TouchableBounce from "./ui/TouchableBounce";
+import TouchableBounce from "@/components/ui/TouchableBounce";
+import { FadeIn } from "@/components/ui/FadeIn";
 
 const POSTER_WIDTH = 140;
 const POSTER_HEIGHT = 210;
@@ -370,7 +371,7 @@ export async function renderTrendingMovies() {
   );
   const data = await response.json();
   const movies = data.results.slice(0, 6);
-  return renderTrendingSection("Movies", movies);
+  return <TrendingSection title="Movies" items={movies} />;
 }
 
 export async function renderTrendingShows() {
@@ -379,12 +380,15 @@ export async function renderTrendingShows() {
   );
   const data = await response.json();
   const shows = data.results.slice(0, 6);
-  return renderTrendingSection("TV Shows", shows);
+  return <TrendingSection title="TV Shows" items={shows} />;
 }
 
-function renderTrendingSection(title: string, items: any[]) {
+
+function TrendingSection({ title, items }: { title: string, items: any[] }) {
+
   return (
-    <View style={{ marginBottom: 24 }}>
+    <FadeIn>
+    <>
       <View style={{ 
         flexDirection: "row", 
         alignItems: "center", 
@@ -399,7 +403,7 @@ function renderTrendingSection(title: string, items: any[]) {
         }}>
           Trending {title}
         </Text>
-        <Link href={`/trending/${title.toLowerCase()}`} asChild>
+        {/* <Link href={`/trending/${title.toLowerCase()}`} asChild>
           <TouchableBounce>
             <Text style={{ 
               fontSize: 16,
@@ -408,7 +412,7 @@ function renderTrendingSection(title: string, items: any[]) {
               See All
             </Text>
           </TouchableBounce>
-        </Link>
+        </Link> */}
       </View>
 
       <ScrollView 
@@ -427,6 +431,7 @@ function renderTrendingSection(title: string, items: any[]) {
           />
         ))}
       </ScrollView>
-    </View>
+    </>
+    </FadeIn>
   );
 }
