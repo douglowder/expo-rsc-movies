@@ -7,7 +7,7 @@ import {
 } from "react-native";
 
 import React from "react";
-import { renderHome } from "@/components/actions";
+import { renderHome, renderTrendingMovies, renderTrendingShows } from "@/components/actions";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { label, systemGray2 } from "@bacons/apple-colors";
 import { BodyScrollView } from "@/components/ui/BodyScrollView";
@@ -45,10 +45,21 @@ function Empty() {
 }
 
 export default function HomeScreen() {
-  const text = useHeaderSearch();
+  const text = useHeaderSearch({
+    placeholder: "Shows, Movies, and More",
+  });
 
   if (!text) {
-    return <Empty />;
+    return (
+      <BodyScrollView contentContainerStyle={{ paddingVertical: 16, gap: 2, }}>
+        <React.Suspense fallback={<ActivityIndicator color={label} />}>
+          {renderTrendingMovies()}
+        </React.Suspense>
+        <React.Suspense fallback={<ActivityIndicator color={label} />}>
+          {renderTrendingShows()}
+        </React.Suspense>
+      </BodyScrollView>
+    )
   }
 
   return (

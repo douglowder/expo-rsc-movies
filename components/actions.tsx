@@ -1,6 +1,6 @@
 "use server";
 
-import { Image, Text, View } from "react-native";
+import { Image, ScrollView, Text, View } from "react-native";
 
 import * as AC from "@bacons/apple-colors";
 import { Link } from "expo-router";
@@ -116,5 +116,102 @@ export async function renderHome(query: string) {
         </Link>
       ))}
     </>
+  );
+}
+
+export async function renderTrendingMovies() {
+  const response = await fetch(
+    "https://api.themoviedb.org/3/trending/movie/week?api_key=" + process.env.TMDB_API_KEY
+  );
+  const data = await response.json();
+  const movies = data.results.slice(0, 6);
+  return renderTrendingSection("Movies", movies);
+}
+
+export async function renderTrendingShows() {
+  const response = await fetch(
+    "https://api.themoviedb.org/3/trending/tv/week?api_key=" + process.env.TMDB_API_KEY
+  );
+  const data = await response.json();
+  const shows = data.results.slice(0, 6);
+  return renderTrendingSection("TV Shows", shows);
+}
+
+function renderTrendingSection(title: string, items: any[]) {
+  return (
+    <View style={{ marginBottom: 24 }}>
+      <View style={{ 
+        flexDirection: "row", 
+        alignItems: "center", 
+        justifyContent: "space-between",
+        marginBottom: 12,
+        paddingHorizontal: 16
+      }}>
+        <Text style={{ 
+          fontSize: 20, 
+          fontWeight: "600",
+          color: AC.label 
+        }}>
+          Trending {title}
+        </Text>
+        <Link href={`/trending/${title.toLowerCase()}`} asChild>
+          <TouchableBounce>
+            <Text style={{ 
+              fontSize: 16,
+              color: AC.systemBlue
+            }}>
+              See All
+            </Text>
+          </TouchableBounce>
+        </Link>
+      </View>
+
+      <ScrollView 
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ paddingHorizontal: 12 }}
+      >
+        {items.map((item) => (
+          <Link 
+            key={item.id}
+            href={`/${title === "Movies" ? "movie" : "show"}/${item.id}`}
+            asChild
+          >
+            <TouchableBounce style={{ marginHorizontal: 4 }}>
+              <View style={{
+                width: 140,
+                backgroundColor: AC.secondarySystemBackground,
+                borderRadius: 12,
+                overflow: "hidden"
+              }}>
+                <Image
+                  source={{ uri: `https://image.tmdb.org/t/p/w300${item.poster_path}` }}
+                  style={{ width: "100%", height: 210, borderRadius: 12, }}
+                />
+                <View style={{ padding: 8 }}>
+                  <Text 
+                    numberOfLines={2}
+                    style={{ 
+                      fontSize: 14,
+                      fontWeight: "500",
+                      color: AC.label,
+                      marginBottom: 4
+                    }}
+                  >
+                    {item.title || item.name}
+                  </Text>
+                  <Text style={{ 
+                    fontSize: 12,
+                    color: AC.systemBlue,
+                  }}>
+                    ★ {item.vote_average.toFixed(1)}
+                  </Text>
+                </View>
+              </View>
+            </TouchableBounce>
+          </Link>
+        ))}
+      </ScrollView>
+    </View>
   );
 }
