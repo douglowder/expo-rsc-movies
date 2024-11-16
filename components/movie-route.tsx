@@ -145,6 +145,13 @@ async function MovieDetails({ id }: { id: string }) {
 
   return (
     <>
+    <Stack.Screen
+        options={{
+          title: movie.title,
+          
+        }}
+      />
+
       <MovieHero movie={movie} />
 
       <View style={{ marginBottom: 24, paddingHorizontal: 16 }}>
