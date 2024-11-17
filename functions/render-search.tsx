@@ -11,65 +11,12 @@ import { Image } from "expo-image";
 const POSTER_WIDTH = 140;
 const POSTER_HEIGHT = 210;
 
-const SkeletonItem = () => (
-  <View style={{ marginHorizontal: 4 }}>
-    <View style={{
-      width: POSTER_WIDTH,
-      backgroundColor: AC.secondarySystemBackground,
-      borderRadius: 12,
-      overflow: "hidden"
-    }}>
-      <View style={{ 
-        width: POSTER_WIDTH, 
-        height: POSTER_HEIGHT,
-        backgroundColor: AC.systemGray5,
-      }} />
-      <View style={{ padding: 8, gap: 4 }}>
-        <View style={{ 
-          height: 14,
-          width: "80%",
-          backgroundColor: AC.systemGray5,
-          borderRadius: 4
-        }} />
-        <View style={{ 
-          height: 12,
-          width: "30%",
-          backgroundColor: AC.systemGray5,
-          borderRadius: 4
-        }} />
-      </View>
-    </View>
-  </View>
-);
-
-const SkeletonSection = () => (
-  <View>
-    <View style={{ 
-      width: 100,
-      height: 20,
-      backgroundColor: AC.systemGray5,
-      borderRadius: 4,
-      marginBottom: 12,
-      marginLeft: 16
-    }} />
-    <ScrollView
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      contentContainerStyle={{ paddingHorizontal: 12 }}
-    >
-      {[...Array(4)].map((_, i) => (
-        <SkeletonItem key={i} />
-      ))}
-    </ScrollView>
-  </View>
-);
-
-const MediaCard = ({ 
-  id, 
-  title, 
-  rating, 
-  posterPath, 
-  type 
+const MediaCard = ({
+  id,
+  title,
+  rating,
+  posterPath,
+  type,
 }: {
   id: number;
   title: string;
@@ -79,18 +26,22 @@ const MediaCard = ({
 }) => (
   <Link key={id} href={`/${type}/${id}`} asChild>
     <TouchableBounce style={{ marginHorizontal: 4 }}>
-      <View style={{
-        width: POSTER_WIDTH,
-        backgroundColor: AC.secondarySystemBackground,
-        borderRadius: 12,
-        overflow: "hidden"
-      }}>
-        <View style={{
+      <View
+        style={{
           width: POSTER_WIDTH,
-          height: POSTER_HEIGHT,
-          backgroundColor: AC.systemGray5,
+          backgroundColor: AC.secondarySystemBackground,
           borderRadius: 12,
-        }}>
+          overflow: "hidden",
+        }}
+      >
+        <View
+          style={{
+            width: POSTER_WIDTH,
+            height: POSTER_HEIGHT,
+            backgroundColor: AC.systemGray5,
+            borderRadius: 12,
+          }}
+        >
           {posterPath && (
             <Image
               source={{ uri: `https://image.tmdb.org/t/p/w300${posterPath}` }}
@@ -102,19 +53,21 @@ const MediaCard = ({
         <View style={{ padding: 8 }}>
           <Text
             numberOfLines={2}
-            style={{ 
+            style={{
               fontSize: 14,
               fontWeight: "500",
               color: AC.label,
-              marginBottom: 4
+              marginBottom: 4,
             }}
           >
             {title}
           </Text>
-          <Text style={{ 
-            fontSize: 12,
-            color: AC.systemBlue,
-          }}>
+          <Text
+            style={{
+              fontSize: 12,
+              color: AC.systemBlue,
+            }}
+          >
             ★ {rating.toFixed(1)}
           </Text>
         </View>
@@ -127,7 +80,7 @@ const PersonCard = ({
   id,
   name,
   department,
-  profilePath
+  profilePath,
 }: {
   id: number;
   name: string;
@@ -136,22 +89,26 @@ const PersonCard = ({
 }) => (
   <Link key={id} href={`/person/${id}`} asChild>
     <TouchableBounce style={{ marginHorizontal: 4 }}>
-      <View style={{
-        width: POSTER_WIDTH,
-        backgroundColor: AC.secondarySystemBackground,
-        borderRadius: 12,
-        overflow: "hidden"
-      }}>
-        <View style={{
+      <View
+        style={{
           width: POSTER_WIDTH,
-          height: POSTER_HEIGHT,
-          backgroundColor: AC.systemGray5,
+          backgroundColor: AC.secondarySystemBackground,
           borderRadius: 12,
-        }}>
+          overflow: "hidden",
+        }}
+      >
+        <View
+          style={{
+            width: POSTER_WIDTH,
+            height: POSTER_HEIGHT,
+            backgroundColor: AC.systemGray5,
+            borderRadius: 12,
+          }}
+        >
           {profilePath && (
             <Image
               source={{ uri: `https://image.tmdb.org/t/p/w300${profilePath}` }}
-              style={{borderRadius: 12, width: "100%", height: "100%" }}
+              style={{ borderRadius: 12, width: "100%", height: "100%" }}
               transition={200}
             />
           )}
@@ -159,19 +116,21 @@ const PersonCard = ({
         <View style={{ padding: 8 }}>
           <Text
             numberOfLines={2}
-            style={{ 
+            style={{
               fontSize: 14,
               fontWeight: "500",
               color: AC.label,
-              marginBottom: 4
+              marginBottom: 4,
             }}
           >
             {name}
           </Text>
-          <Text style={{ 
-            fontSize: 12,
-            color: AC.secondaryLabel,
-          }}>
+          <Text
+            style={{
+              fontSize: 12,
+              color: AC.secondaryLabel,
+            }}
+          >
             {department}
           </Text>
         </View>
@@ -186,13 +145,15 @@ const MoviesSection = async ({ query }: { query: string }) => {
 
   return (
     <View>
-      <Text style={{ 
-        fontSize: 20, 
-        fontWeight: "600",
-        color: AC.label,
-        marginBottom: 12,
-        paddingHorizontal: 16 
-      }}>
+      <Text
+        style={{
+          fontSize: 20,
+          fontWeight: "600",
+          color: AC.label,
+          marginBottom: 12,
+          paddingHorizontal: 16,
+        }}
+      >
         Movies
       </Text>
       <ScrollView
@@ -221,13 +182,15 @@ const ShowsSection = async ({ query }: { query: string }) => {
 
   return (
     <View>
-      <Text style={{ 
-        fontSize: 20, 
-        fontWeight: "600",
-        color: AC.label,
-        marginBottom: 12,
-        paddingHorizontal: 16 
-      }}>
+      <Text
+        style={{
+          fontSize: 20,
+          fontWeight: "600",
+          color: AC.label,
+          marginBottom: 12,
+          paddingHorizontal: 16,
+        }}
+      >
         TV Shows
       </Text>
       <ScrollView
@@ -256,13 +219,15 @@ const PeopleSection = async ({ query }: { query: string }) => {
 
   return (
     <View>
-      <Text style={{ 
-        fontSize: 20, 
-        fontWeight: "600",
-        color: AC.label,
-        marginBottom: 12,
-        paddingHorizontal: 16 
-      }}>
+      <Text
+        style={{
+          fontSize: 20,
+          fontWeight: "600",
+          color: AC.label,
+          marginBottom: 12,
+          paddingHorizontal: 16,
+        }}
+      >
         People
       </Text>
       <ScrollView
@@ -353,24 +318,19 @@ async function getPeople(query = "") {
 export async function renderSearchContents(query: string) {
   return (
     <View style={{ gap: 24 }}>
-      <React.Suspense fallback={<SkeletonSection />}>
-        <MoviesSection query={query} />
-      </React.Suspense>
+      <MoviesSection query={query} />
 
-      <React.Suspense fallback={<SkeletonSection />}>
-        <ShowsSection query={query} />
-      </React.Suspense>
+      <ShowsSection query={query} />
 
-      <React.Suspense fallback={<SkeletonSection />}>
-        <PeopleSection query={query} />
-      </React.Suspense>
+      <PeopleSection query={query} />
     </View>
   );
 }
 
 export async function renderTrendingMovies() {
   const response = await fetch(
-    "https://api.themoviedb.org/3/trending/movie/week?api_key=" + process.env.TMDB_API_KEY
+    "https://api.themoviedb.org/3/trending/movie/week?api_key=" +
+      process.env.TMDB_API_KEY
   );
   const data = await response.json();
   const movies = data.results.slice(0, 6);
@@ -379,34 +339,37 @@ export async function renderTrendingMovies() {
 
 export async function renderTrendingShows() {
   const response = await fetch(
-    "https://api.themoviedb.org/3/trending/tv/week?api_key=" + process.env.TMDB_API_KEY
+    "https://api.themoviedb.org/3/trending/tv/week?api_key=" +
+      process.env.TMDB_API_KEY
   );
   const data = await response.json();
   const shows = data.results.slice(0, 6);
   return <TrendingSection title="TV Shows" items={shows} />;
 }
 
-
-function TrendingSection({ title, items }: { title: string, items: any[] }) {
-
+function TrendingSection({ title, items }: { title: string; items: any[] }) {
   return (
     <FadeIn>
-    <>
-      <View style={{ 
-        flexDirection: "row", 
-        alignItems: "center", 
-        justifyContent: "space-between",
-        marginBottom: 12,
-        paddingHorizontal: 16
-      }}>
-        <Text style={{ 
-          fontSize: 20, 
-          fontWeight: "600",
-          color: AC.label 
-        }}>
-          Trending {title}
-        </Text>
-        {/* <Link href={`/trending/${title.toLowerCase()}`} asChild>
+      <>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: 12,
+            paddingHorizontal: 16,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: "600",
+              color: AC.label,
+            }}
+          >
+            Trending {title}
+          </Text>
+          {/* <Link href={`/trending/${title.toLowerCase()}`} asChild>
           <TouchableBounce>
             <Text style={{ 
               fontSize: 16,
@@ -416,25 +379,25 @@ function TrendingSection({ title, items }: { title: string, items: any[] }) {
             </Text>
           </TouchableBounce>
         </Link> */}
-      </View>
+        </View>
 
-      <ScrollView 
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 12 }}
-      >
-        {items.map((item) => (
-          <MediaCard
-            key={item.id}
-            id={item.id}
-            title={item.title || item.name}
-            rating={item.vote_average}
-            posterPath={item.poster_path}
-            type={title === "Movies" ? "movie" : "show"}
-          />
-        ))}
-      </ScrollView>
-    </>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ paddingHorizontal: 12 }}
+        >
+          {items.map((item) => (
+            <MediaCard
+              key={item.id}
+              id={item.id}
+              title={item.title || item.name}
+              rating={item.vote_average}
+              posterPath={item.poster_path}
+              type={title === "Movies" ? "movie" : "show"}
+            />
+          ))}
+        </ScrollView>
+      </>
     </FadeIn>
   );
 }
