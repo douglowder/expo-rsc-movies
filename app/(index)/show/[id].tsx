@@ -6,6 +6,23 @@ import { View } from "react-native";
 
 export { ErrorBoundary } from "expo-router";
 
+export default function ShowDetails() {
+  const { id } = useLocalSearchParams<{ id: string }>();
+
+  const screen = useMemo(() => renderMedia(id, "tv"), [id]);
+
+  return (
+    <BodyScrollView>
+      <Stack.Screen
+        options={{
+          title: "Show",
+        }}
+      />
+      <React.Suspense fallback={<MovieSkeleton />}>{screen}</React.Suspense>
+    </BodyScrollView>
+  );
+}
+
 function MovieSkeleton() {
   return (
     <View>
@@ -91,22 +108,5 @@ function MovieSkeleton() {
         </View>
       </View>
     </View>
-  );
-}
-
-export default function ShowDetails() {
-  const { id } = useLocalSearchParams<{ id: string }>();
-
-  const screen = useMemo(() => renderMedia(id, "tv"), [id]);
-
-  return (
-    <BodyScrollView>
-      <Stack.Screen
-        options={{
-          title: "Show",
-        }}
-      />
-      <React.Suspense fallback={<MovieSkeleton />}>{screen}</React.Suspense>
-    </BodyScrollView>
   );
 }

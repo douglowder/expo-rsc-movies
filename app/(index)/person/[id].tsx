@@ -2,10 +2,29 @@ import { BodyScrollView } from "@/components/ui/BodyScrollView";
 import { renderPersonDetails } from "@/functions/render-person-details";
 import { Stack, useLocalSearchParams } from "expo-router";
 import React, { useMemo } from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import * as AC from "@bacons/apple-colors";
 
 export { ErrorBoundary } from "expo-router";
+
+export default function PersonDetails() {
+  const { id } = useLocalSearchParams<{ id: string }>();
+
+  const screen = useMemo(() => renderPersonDetails(id), [id]);
+
+  return (
+    <BodyScrollView>
+      <Stack.Screen
+        options={{
+          title: "Person",
+        }}
+      />
+      <React.Suspense fallback={<PersonDetailsSkeleton />}>
+        {screen}
+      </React.Suspense>
+    </BodyScrollView>
+  );
+}
 
 function PersonDetailsSkeleton() {
   return (
@@ -104,24 +123,5 @@ function PersonDetailsSkeleton() {
         </View>
       </View>
     </View>
-  );
-}
-
-export default function PersonDetails() {
-  const { id } = useLocalSearchParams<{ id: string }>();
-
-  const screen = useMemo(() => renderPersonDetails(id), [id]);
-
-  return (
-    <BodyScrollView>
-      <Stack.Screen
-        options={{
-          title: "Person",
-        }}
-      />
-      <React.Suspense fallback={<PersonDetailsSkeleton />}>
-        {screen}
-      </React.Suspense>
-    </BodyScrollView>
   );
 }
