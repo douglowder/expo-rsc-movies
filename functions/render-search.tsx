@@ -1,11 +1,12 @@
 "use server";
 
-import { Image, ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import React from "react";
 import * as AC from "@bacons/apple-colors";
 import { Link } from "expo-router";
 import TouchableBounce from "@/components/ui/TouchableBounce";
 import { FadeIn } from "@/components/ui/FadeIn";
+import { Image } from "expo-image";
 
 const POSTER_WIDTH = 140;
 const POSTER_HEIGHT = 210;
@@ -94,6 +95,7 @@ const MediaCard = ({
             <Image
               source={{ uri: `https://image.tmdb.org/t/p/w300${posterPath}` }}
               style={{ borderRadius: 12, width: "100%", height: "100%" }}
+              transition={200}
             />
           )}
         </View>
@@ -150,6 +152,7 @@ const PersonCard = ({
             <Image
               source={{ uri: `https://image.tmdb.org/t/p/w300${profilePath}` }}
               style={{borderRadius: 12, width: "100%", height: "100%" }}
+              transition={200}
             />
           )}
         </View>

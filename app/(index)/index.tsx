@@ -92,7 +92,7 @@ export default function HomeScreen() {
         gap: 2,
       }}
     >
-      <React.Suspense fallback={<ActivityIndicator color={label} />}>
+      <React.Suspense fallback={null}>
         {renderSearchContents(text)}
       </React.Suspense>
     </BodyScrollView>

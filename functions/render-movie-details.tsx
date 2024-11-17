@@ -2,10 +2,11 @@
 
 import { label } from "@bacons/apple-colors";
 import { Link, Stack } from "expo-router";
-import { Image, ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import TouchableBounce from "@/components/ui/TouchableBounce";
 import React from "react";
 import { FadeIn } from "@/components/ui/FadeIn";
+import { Image } from "expo-image";
 
 export async function renderMovie(id: string) {
   return (
@@ -17,9 +18,7 @@ export async function renderMovie(id: string) {
         }}
       />
 
-
-        <MovieDetails id={id} />
-
+      <MovieDetails id={id} />
 
       <React.Suspense fallback={<ListSkeleton />}>
         <MovieVideos id={id} />
@@ -70,6 +69,7 @@ function MovieHero({ movie }: { movie: any }) {
           height: 300,
           resizeMode: "cover",
         }}
+        transition={300}
       />
       <View style={{ padding: 16, marginTop: -60, flexDirection: "row" }}>
         <Image 
@@ -82,6 +82,7 @@ function MovieHero({ movie }: { movie: any }) {
             borderRadius: 8,
             marginRight: 16
           }}
+          transition={300}
         />
         <View style={{ flex: 1, justifyContent: "flex-end" }}>
           <Text style={{ fontSize: 24, fontWeight: "bold", color: label, marginBottom: 8 }}>
@@ -102,6 +103,7 @@ function VideoCard({ video }: { video: any }) {
       <Image
         source={{ uri: `https://img.youtube.com/vi/${video.key}/0.jpg` }}
         style={{ width: "100%", height: 157, borderRadius: 8 }}
+        transition={300}
       />
       <Text style={{ fontSize: 14, color: label, marginTop: 4 }} numberOfLines={1}>
         {video.name}
@@ -121,6 +123,7 @@ function CastCard({ person }: { person: any }) {
               : 'https://via.placeholder.com/100x150'
           }}
           style={{ width: 100, height: 150, borderRadius: 8 }}
+          transition={300}
         />
         <Text style={{ fontSize: 14, color: label, marginTop: 4 }} numberOfLines={1}>
           {person.name}
@@ -140,6 +143,7 @@ function CompanyCard({ company }: { company: any }) {
         <Image
           source={{ uri: `https://image.tmdb.org/t/p/w200${company.logo_path}` }}
           style={{ width: 80, height: 80, resizeMode: "contain" }}
+          transition={300}
         />
       )}
       <Text style={{ fontSize: 12, color: label, textAlign: "center", marginTop: 4 }} numberOfLines={2}>
@@ -157,6 +161,7 @@ function SimilarMovieCard({ movie }: { movie: any }) {
           <Image
             source={{ uri: `https://image.tmdb.org/t/p/w300${movie.poster_path}` }}
             style={{ width: 140, height: 210, borderRadius: 8 }}
+            transition={300}
           />
           <Text style={{ fontSize: 14, color: label, marginTop: 4 }} numberOfLines={2}>
             {movie.title}

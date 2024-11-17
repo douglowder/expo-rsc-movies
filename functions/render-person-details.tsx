@@ -2,10 +2,10 @@
 
 import TouchableBounce from "@/components/ui/TouchableBounce";
 import { Link } from "expo-router";
-import { Image, Text, View, ScrollView, TouchableOpacity } from "react-native";
+import { Text, View, ScrollView, TouchableOpacity } from "react-native";
 import * as AC from '@bacons/apple-colors'
 import ShowMore from "@/components/ShowMore";
-
+import { Image } from "expo-image";
 
 
 export async function renderPersonDetails(id: string) {
@@ -34,6 +34,7 @@ export async function renderPersonDetails(id: string) {
       }}>
         {person.profile_path && (
           <Image 
+          transition={200}
             source={{ uri: `https://image.tmdb.org/t/p/original${person.profile_path}` }}
             style={{ 
               position: "absolute",
@@ -139,6 +140,7 @@ export async function renderPersonDetails(id: string) {
                     overflow: "hidden"
                   }}>
                     <Image
+                    transition={200}
                       source={{ 
                         uri: credit.poster_path 
                           ? `https://image.tmdb.org/t/p/w300${credit.poster_path}`
