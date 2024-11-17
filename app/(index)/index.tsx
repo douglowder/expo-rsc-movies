@@ -1,7 +1,7 @@
 /// <reference types="react/canary" />
 import { ScrollView, View } from "react-native";
 
-import React, { useMemo } from "react";
+import React from "react";
 import { renderSearchContents } from "@/functions/render-search";
 import { BodyScrollView } from "@/components/ui/BodyScrollView";
 import { useHeaderSearch } from "@/hooks/useHeaderSearch";
@@ -16,16 +16,14 @@ export default function HomeScreen() {
     placeholder: "Shows, Movies, and More",
   });
 
-  const searchPlaceholder = useMemo(() => <SearchPlaceholder />, []);
   if (!text || text.length < 2) {
-    return <>{searchPlaceholder}</>;
+    return <SearchPlaceholder />;
   }
 
   return <SearchPage text={text} />;
 }
 
 function SearchPage({ text }: { text: string }) {
-  const contents = useMemo(() => renderSearchContents(text), [text]);
   return (
     <BodyScrollView
       contentContainerStyle={{
@@ -33,7 +31,9 @@ function SearchPage({ text }: { text: string }) {
         gap: 2,
       }}
     >
-      <React.Suspense fallback={<Loading />}>{contents}</React.Suspense>
+      <React.Suspense fallback={<Loading />}>
+        {renderSearchContents(text)}
+      </React.Suspense>
     </BodyScrollView>
   );
 }

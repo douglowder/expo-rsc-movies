@@ -139,7 +139,7 @@ const PersonCard = ({
   </Link>
 );
 
-const MoviesSection = async ({ query }: { query: string }) => {
+async function MoviesSection({ query }: { query: string }) {
   const movies = await getMovies(query);
   if (!movies.length) return null;
 
@@ -174,7 +174,7 @@ const MoviesSection = async ({ query }: { query: string }) => {
       </ScrollView>
     </View>
   );
-};
+}
 
 const ShowsSection = async ({ query }: { query: string }) => {
   const shows = await getShows(query);

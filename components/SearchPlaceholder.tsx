@@ -12,11 +12,11 @@ export function SearchPlaceholder() {
   const cardWidth = 140;
   const cardHeight = 210;
   const gap = 8;
-  const numCards = Math.floor(width / (cardWidth + gap));
+  const numCards = Math.floor((width * 2) / (cardWidth + gap));
 
   function SkeletonRow() {
     return (
-      <View style={{ paddingHorizontal: 16 }}>
+      <View style={{ paddingLeft: 16 }}>
         <View
           style={{
             width: 200,

@@ -197,6 +197,7 @@ export async function renderPersonDetails(id: string) {
             {allCredits.map((credit: any) => (
               <Link
                 key={credit.id}
+                // @ts-expect-error
                 href={`/${credit.media_type}/${credit.id}`}
                 asChild
               >
