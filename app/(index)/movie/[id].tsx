@@ -1,4 +1,4 @@
-import { renderMovie } from "@/functions/render-movie-details";
+import { renderMedia } from "@/functions/render-movie-details";
 import { BodyScrollView } from "@/components/ui/BodyScrollView";
 import { Stack, useLocalSearchParams } from "expo-router";
 import React, { useMemo } from "react";
@@ -43,7 +43,7 @@ function MovieSkeleton() {
 export default function Movie() {
   const { id } = useLocalSearchParams<{ id: string }>();
 
-  const screen = useMemo(() => renderMovie(id), [id]);
+  const screen = useMemo(() => renderMedia(id, "movie"), [id]);
 
   return (
     <BodyScrollView>
