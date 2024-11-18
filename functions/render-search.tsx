@@ -11,6 +11,18 @@ import { Image } from "expo-image";
 const POSTER_WIDTH = 140;
 const POSTER_HEIGHT = 210;
 
+export async function renderSearchContents(query: string) {
+  return (
+    <View style={{ gap: 24 }}>
+      <MoviesSection query={query} />
+
+      <ShowsSection query={query} />
+
+      <PeopleSection query={query} />
+    </View>
+  );
+}
+
 const MediaCard = ({
   id,
   title,
@@ -313,18 +325,6 @@ async function getPeople(query = "") {
     console.error("Error fetching people:", error);
     return [];
   }
-}
-
-export async function renderSearchContents(query: string) {
-  return (
-    <View style={{ gap: 24 }}>
-      <MoviesSection query={query} />
-
-      <ShowsSection query={query} />
-
-      <PeopleSection query={query} />
-    </View>
-  );
 }
 
 export async function renderTrendingMovies() {
