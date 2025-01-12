@@ -139,7 +139,7 @@ function VideoCard({ video }: { video: any }) {
 
 function CastCard({ person }: { person: any }) {
   return (
-    <Link href={`/person/${person.id}`} asChild>
+    <Link href={`/person/${person.id}`} asChild push>
       <TouchableBounce style={{ width: 100, marginHorizontal: 4 }}>
         <Image
           source={{
