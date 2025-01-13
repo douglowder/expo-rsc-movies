@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "nov13",
-    "slug": "nov13",
+    "name": "rsc-movies",
+    "slug": "rsc-movies",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -37,6 +37,11 @@
     "experiments": {
       "reactServerFunctions": true,
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "07793961-ad0c-43ca-bce1-301475ecd214"
+      }
     }
   }
 }
