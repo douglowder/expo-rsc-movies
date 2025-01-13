@@ -16,6 +16,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "react-server-dom-webpack": "19.0.0-rc-6230622a1a-20240610",
     "@bacons/apple-colors": "^0.0.7",
     "@expo/vector-icons": "^14.0.2",
     "@react-navigation/bottom-tabs": "^7.0.0",
