@@ -133,7 +133,7 @@ export async function renderPersonDetails(id: string) {
             .filter(Boolean)
             .map((item, index, array) => (
               <View
-                key={item.label}
+                key={item.label + index}
                 style={{
                   padding: 12,
                   flexDirection: "row",
@@ -194,9 +194,9 @@ export async function renderPersonDetails(id: string) {
               justifyContent: "space-between",
             }}
           >
-            {allCredits.map((credit: any) => (
+            {allCredits.map((credit: any, index) => (
               <Link
-                key={credit.id}
+                key={credit.id + index}
                 // @ts-expect-error
                 href={`/${credit.media_type}/${credit.id}`}
                 asChild
