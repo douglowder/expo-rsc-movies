@@ -9,14 +9,21 @@ import { Image } from "expo-image";
 
 export async function renderPersonDetails(id: string) {
   // Fetch person details
-  const response = await fetch(
-    `https://api.themoviedb.org/3/person/${id}?api_key=${process.env.TMDB_API_KEY}`
-  );
+  const response = await fetch(`https://api.themoviedb.org/3/person/${id}`, {
+    headers: {
+      Authorization: `Bearer ${process.env.TMDB_READ_ACCESS_TOKEN}`,
+    },
+  });
   const person = await response.json();
 
   // Fetch person credits
   const creditsResponse = await fetch(
-    `https://api.themoviedb.org/3/person/${id}/combined_credits?api_key=${process.env.TMDB_API_KEY}`
+    `https://api.themoviedb.org/3/person/${id}/combined_credits`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.TMDB_READ_ACCESS_TOKEN}`,
+      },
+    }
   );
   const credits = await creditsResponse.json();
 

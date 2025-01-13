@@ -262,13 +262,16 @@ const PeopleSection = async ({ query }: { query: string }) => {
 };
 
 async function getMovies(query = "") {
-  const API_KEY = process.env.TMDB_API_KEY;
-
   try {
     const response = await fetch(
-      `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(
+      `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
         query
-      )}`
+      )}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.TMDB_READ_ACCESS_TOKEN}`,
+        },
+      }
     );
 
     if (!response.ok) {
@@ -284,13 +287,16 @@ async function getMovies(query = "") {
 }
 
 async function getShows(query = "") {
-  const API_KEY = process.env.TMDB_API_KEY;
-
   try {
     const response = await fetch(
-      `https://api.themoviedb.org/3/search/tv?api_key=${API_KEY}&query=${encodeURIComponent(
+      `https://api.themoviedb.org/3/search/tv?query=${encodeURIComponent(
         query
-      )}`
+      )}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.TMDB_READ_ACCESS_TOKEN}`,
+        },
+      }
     );
 
     if (!response.ok) {
@@ -306,13 +312,16 @@ async function getShows(query = "") {
 }
 
 async function getPeople(query = "") {
-  const API_KEY = process.env.TMDB_API_KEY;
-
   try {
     const response = await fetch(
-      `https://api.themoviedb.org/3/search/person?api_key=${API_KEY}&query=${encodeURIComponent(
+      `https://api.themoviedb.org/3/search/person?query=${encodeURIComponent(
         query
-      )}`
+      )}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.TMDB_READ_ACCESS_TOKEN}`,
+        },
+      }
     );
 
     if (!response.ok) {
@@ -327,24 +336,30 @@ async function getPeople(query = "") {
   }
 }
 
-export async function renderTrendingMovies() {
+export async function renderTrendingMedia({
+  type,
+  timeWindow,
+}: {
+  type: "movie" | "tv";
+  timeWindow: "day" | "week";
+}) {
   const response = await fetch(
-    "https://api.themoviedb.org/3/trending/movie/week?api_key=" +
-      process.env.TMDB_API_KEY
-  );
-  const data = await response.json();
-  const movies = data.results.slice(0, 6);
-  return <TrendingSection title="Movies" items={movies} />;
-}
-
-export async function renderTrendingShows() {
-  const response = await fetch(
-    "https://api.themoviedb.org/3/trending/tv/week?api_key=" +
-      process.env.TMDB_API_KEY
+    `https://api.themoviedb.org/3/trending/${type}/${timeWindow}`,
+    {
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${process.env.TMDB_READ_ACCESS_TOKEN}`,
+      },
+    }
   );
   const data = await response.json();
   const shows = data.results.slice(0, 6);
-  return <TrendingSection title="TV Shows" items={shows} />;
+  return (
+    <TrendingSection
+      title={type === "tv" ? "TV Shows" : "Movies"}
+      items={shows}
+    />
+  );
 }
 
 function TrendingSection({ title, items }: { title: string; items: any[] }) {

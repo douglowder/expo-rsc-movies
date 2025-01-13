@@ -1,9 +1,6 @@
 /// <reference types="react/canary" />
 import { BodyScrollView } from "@/components/ui/BodyScrollView";
-import {
-  renderTrendingMovies,
-  renderTrendingShows,
-} from "@/functions/render-search";
+import { renderTrendingMedia } from "@/functions/render-search";
 import React from "react";
 import { ScrollView, useWindowDimensions, View } from "react-native";
 
@@ -71,10 +68,16 @@ export function SearchPlaceholder() {
   return (
     <BodyScrollView contentContainerStyle={{ paddingVertical: 16, gap: 24 }}>
       <React.Suspense fallback={<SkeletonRow />}>
-        {renderTrendingMovies()}
+        {renderTrendingMedia({
+          type: "movie",
+          timeWindow: "day",
+        })}
       </React.Suspense>
       <React.Suspense fallback={<SkeletonRow />}>
-        {renderTrendingShows()}
+        {renderTrendingMedia({
+          type: "tv",
+          timeWindow: "day",
+        })}
       </React.Suspense>
     </BodyScrollView>
   );

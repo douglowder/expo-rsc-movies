@@ -223,9 +223,11 @@ function MediaCard({ media, type }: { media: any; type: MediaType }) {
 }
 
 async function MediaDetails({ id, type }: { id: string; type: MediaType }) {
-  const response = await fetch(
-    `https://api.themoviedb.org/3/${type}/${id}?api_key=${process.env.TMDB_API_KEY}`
-  );
+  const response = await fetch(`https://api.themoviedb.org/3/${type}/${id}`, {
+    headers: {
+      Authorization: `Bearer ${process.env.TMDB_READ_ACCESS_TOKEN}`,
+    },
+  });
   const media = await response.json();
 
   if (!response.ok) {
@@ -348,7 +350,12 @@ async function MediaDetails({ id, type }: { id: string; type: MediaType }) {
 
 async function MediaVideos({ id, type }: { id: string; type: MediaType }) {
   const response = await fetch(
-    `https://api.themoviedb.org/3/${type}/${id}/videos?api_key=${process.env.TMDB_API_KEY}`
+    `https://api.themoviedb.org/3/${type}/${id}/videos`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.TMDB_READ_ACCESS_TOKEN}`,
+      },
+    }
   );
   const videos = await response.json();
 
@@ -365,7 +372,12 @@ async function MediaVideos({ id, type }: { id: string; type: MediaType }) {
 
 async function MediaCast({ id, type }: { id: string; type: MediaType }) {
   const response = await fetch(
-    `https://api.themoviedb.org/3/${type}/${id}/credits?api_key=${process.env.TMDB_API_KEY}`
+    `https://api.themoviedb.org/3/${type}/${id}/credits`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.TMDB_READ_ACCESS_TOKEN}`,
+      },
+    }
   );
   const credits = await response.json();
 
@@ -379,9 +391,11 @@ async function MediaCast({ id, type }: { id: string; type: MediaType }) {
 }
 
 async function MediaCompanies({ id, type }: { id: string; type: MediaType }) {
-  const response = await fetch(
-    `https://api.themoviedb.org/3/${type}/${id}?api_key=${process.env.TMDB_API_KEY}`
-  );
+  const response = await fetch(`https://api.themoviedb.org/3/${type}/${id}`, {
+    headers: {
+      Authorization: `Bearer ${process.env.TMDB_READ_ACCESS_TOKEN}`,
+    },
+  });
   const media = await response.json();
 
   return (
@@ -395,7 +409,12 @@ async function MediaCompanies({ id, type }: { id: string; type: MediaType }) {
 
 async function SimilarMedia({ id, type }: { id: string; type: MediaType }) {
   const response = await fetch(
-    `https://api.themoviedb.org/3/${type}/${id}/similar?api_key=${process.env.TMDB_API_KEY}`
+    `https://api.themoviedb.org/3/${type}/${id}/similar`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.TMDB_READ_ACCESS_TOKEN}`,
+      },
+    }
   );
   const similar = await response.json();
 
