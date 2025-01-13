@@ -36,7 +36,8 @@
     ],
     "experiments": {
       "reactServerFunctions": true,
-      "typedRoutes": true
+      "typedRoutes": true,
+      "reactCompiler": true
     },
     "extra": {
       "eas": {

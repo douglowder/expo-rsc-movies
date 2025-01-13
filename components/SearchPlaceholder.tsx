@@ -65,18 +65,22 @@ export function SearchPlaceholder() {
     );
   }
 
+  const numItems = process.env.EXPO_OS === "web" ? 9 : 6;
+
   return (
     <BodyScrollView contentContainerStyle={{ paddingVertical: 16, gap: 24 }}>
       <React.Suspense fallback={<SkeletonRow />}>
         {renderTrendingMedia({
           type: "movie",
           timeWindow: "day",
+          size: numItems,
         })}
       </React.Suspense>
       <React.Suspense fallback={<SkeletonRow />}>
         {renderTrendingMedia({
           type: "tv",
           timeWindow: "day",
+          size: numItems,
         })}
       </React.Suspense>
     </BodyScrollView>

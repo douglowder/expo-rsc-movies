@@ -339,9 +339,11 @@ async function getPeople(query = "") {
 export async function renderTrendingMedia({
   type,
   timeWindow,
+  size,
 }: {
   type: "movie" | "tv";
   timeWindow: "day" | "week";
+  size: number;
 }) {
   const response = await fetch(
     `https://api.themoviedb.org/3/trending/${type}/${timeWindow}`,
@@ -353,7 +355,7 @@ export async function renderTrendingMedia({
     }
   );
   const data = await response.json();
-  const shows = data.results.slice(0, 6);
+  const shows = data.results.slice(0, size);
   return (
     <TrendingSection
       title={type === "tv" ? "TV Shows" : "Movies"}

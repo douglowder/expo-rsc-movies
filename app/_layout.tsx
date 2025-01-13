@@ -40,15 +40,6 @@ export default function RootLayout() {
             ),
           }}
         />
-        <Tabs.Screen
-          name="(explore)"
-          options={{
-            title: "Share",
-            tabBarIcon: ({ color }) => (
-              <IconSymbol size={28} name="paperplane.fill" color={color} />
-            ),
-          }}
-        />
       </Tabs>
       <StatusBar style="auto" />
     </ThemeProvider>
