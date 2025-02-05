@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useMemo, useRef } from "react";
-import { Animated } from "react-native";
+import { useMemo, useRef } from 'react';
+import { Animated } from 'react-native';
 
 export function FadeIn({ children }: { children: React.ReactNode }) {
   const opacity = useRef(new Animated.Value(0)).current;
@@ -11,7 +11,7 @@ export function FadeIn({ children }: { children: React.ReactNode }) {
       duration: 500,
       useNativeDriver: true,
     }).start();
-  }, []);
+  }, [opacity]);
 
   return <Animated.View style={{ opacity }}>{children}</Animated.View>;
 }

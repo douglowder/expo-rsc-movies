@@ -1,21 +1,21 @@
-"use server";
+'use server';
 
-import { label } from "@bacons/apple-colors";
-import { Link, Stack } from "expo-router";
-import { ScrollView, Text, View } from "react-native";
-import TouchableBounce from "@/components/ui/TouchableBounce";
-import React from "react";
-import { FadeIn } from "@/components/ui/FadeIn";
-import { Image } from "expo-image";
+import { label } from '@bacons/apple-colors';
+import { Link, Stack } from 'expo-router';
+import { ScrollView, Text, View } from 'react-native';
+import TouchableBounce from '@/components/ui/TouchableBounce';
+import React from 'react';
+import { FadeIn } from '@/components/ui/FadeIn';
+import { Image } from 'expo-image';
 
-type MediaType = "movie" | "tv";
+type MediaType = 'movie' | 'tv';
 
-export async function renderMedia(id: string, type: MediaType = "movie") {
+export async function renderMedia(id: string, type: MediaType = 'movie') {
   return (
     <>
       <Stack.Screen
         options={{
-          title: "",
+          title: '',
           headerTransparent: true,
         }}
       />
@@ -53,7 +53,7 @@ function HorizontalList({
       <Text
         style={{
           fontSize: 20,
-          fontWeight: "600",
+          fontWeight: '600',
           color: label,
           marginBottom: 12,
           paddingHorizontal: 16,
@@ -80,13 +80,13 @@ function MediaHero({ media, type }: { media: any; type: MediaType }) {
           uri: `https://image.tmdb.org/t/p/w500${media.backdrop_path}`,
         }}
         style={{
-          width: "100%",
+          width: '100%',
           height: 300,
-          resizeMode: "cover",
+          resizeMode: 'cover',
         }}
         transition={300}
       />
-      <View style={{ padding: 16, marginTop: -60, flexDirection: "row" }}>
+      <View style={{ padding: 16, marginTop: -60, flexDirection: 'row' }}>
         <Image
           source={{
             uri: `https://image.tmdb.org/t/p/w500${media.poster_path}`,
@@ -99,16 +99,16 @@ function MediaHero({ media, type }: { media: any; type: MediaType }) {
           }}
           transition={300}
         />
-        <View style={{ flex: 1, justifyContent: "flex-end" }}>
+        <View style={{ flex: 1, justifyContent: 'flex-end' }}>
           <Text
             style={{
               fontSize: 24,
-              fontWeight: "bold",
+              fontWeight: 'bold',
               color: label,
               marginBottom: 8,
             }}
           >
-            {type === "movie" ? media.title : media.name}
+            {type === 'movie' ? media.title : media.name}
           </Text>
           <Text style={{ fontSize: 15, color: label, opacity: 0.8 }}>
             {media.tagline}
@@ -124,7 +124,7 @@ function VideoCard({ video }: { video: any }) {
     <View style={{ width: 280, marginHorizontal: 4 }}>
       <Image
         source={{ uri: `https://img.youtube.com/vi/${video.key}/0.jpg` }}
-        style={{ width: "100%", height: 157, borderRadius: 8 }}
+        style={{ width: '100%', height: 157, borderRadius: 8 }}
         transition={300}
       />
       <Text
@@ -145,7 +145,7 @@ function CastCard({ person }: { person: any }) {
           source={{
             uri: person.profile_path
               ? `https://image.tmdb.org/t/p/w200${person.profile_path}`
-              : "https://via.placeholder.com/100x150",
+              : 'https://via.placeholder.com/100x150',
           }}
           style={{ width: 100, height: 150, borderRadius: 8 }}
           transition={300}
@@ -169,13 +169,13 @@ function CastCard({ person }: { person: any }) {
 
 function CompanyCard({ company }: { company: any }) {
   return (
-    <View style={{ alignItems: "center", marginHorizontal: 8, width: 100 }}>
+    <View style={{ alignItems: 'center', marginHorizontal: 8, width: 100 }}>
       {company.logo_path && (
         <Image
           source={{
             uri: `https://image.tmdb.org/t/p/w200${company.logo_path}`,
           }}
-          style={{ width: 80, height: 80, resizeMode: "contain" }}
+          style={{ width: 80, height: 80, resizeMode: 'contain' }}
           transition={300}
         />
       )}
@@ -183,7 +183,7 @@ function CompanyCard({ company }: { company: any }) {
         style={{
           fontSize: 12,
           color: label,
-          textAlign: "center",
+          textAlign: 'center',
           marginTop: 4,
         }}
         numberOfLines={2}
@@ -211,7 +211,7 @@ function MediaCard({ media, type }: { media: any; type: MediaType }) {
             style={{ fontSize: 14, color: label, marginTop: 4 }}
             numberOfLines={2}
           >
-            {type === "movie" ? media.title : media.name}
+            {type === 'movie' ? media.title : media.name}
           </Text>
           <Text style={{ fontSize: 12, color: label, opacity: 0.7 }}>
             ★ {media.vote_average.toFixed(1)}
@@ -238,7 +238,7 @@ async function MediaDetails({ id, type }: { id: string; type: MediaType }) {
     <>
       <Stack.Screen
         options={{
-          title: type === "movie" ? media.title : media.name,
+          title: type === 'movie' ? media.title : media.name,
         }}
       />
 
@@ -259,7 +259,7 @@ async function MediaDetails({ id, type }: { id: string; type: MediaType }) {
           <Text
             style={{
               fontSize: 20,
-              fontWeight: "600",
+              fontWeight: '600',
               color: label,
               marginBottom: 12,
             }}
@@ -268,67 +268,67 @@ async function MediaDetails({ id, type }: { id: string; type: MediaType }) {
           </Text>
           <View
             style={{
-              backgroundColor: "rgba(120,120,128,0.12)",
+              backgroundColor: 'rgba(120,120,128,0.12)',
               borderRadius: 10,
             }}
           >
             {[
               {
-                label: type === "movie" ? "Release Date" : "First Air Date",
+                label: type === 'movie' ? 'Release Date' : 'First Air Date',
                 value: new Date(
-                  type === "movie" ? media.release_date : media.first_air_date
+                  type === 'movie' ? media.release_date : media.first_air_date,
                 ).toLocaleDateString(),
               },
               {
-                label: "Age Rating",
-                value: media.adult ? "Adult" : "All Ages",
+                label: 'Age Rating',
+                value: media.adult ? 'Adult' : 'All Ages',
               },
               {
-                label: type === "movie" ? "Runtime" : "Episode Runtime",
+                label: type === 'movie' ? 'Runtime' : 'Episode Runtime',
                 value:
-                  type === "movie"
+                  type === 'movie'
                     ? `${media.runtime} minutes`
-                    : `${media.episode_run_time?.[0] || "N/A"} minutes`,
+                    : `${media.episode_run_time?.[0] || 'N/A'} minutes`,
               },
               {
-                label: "Budget",
+                label: 'Budget',
                 value: media.budget
                   ? `$${(media.budget / 1000000).toFixed(1)}M`
-                  : "N/A",
+                  : 'N/A',
               },
               {
-                label: "Revenue",
+                label: 'Revenue',
                 value: media.revenue
                   ? `$${(media.revenue / 1000000).toFixed(1)}M`
-                  : "N/A",
+                  : 'N/A',
               },
               {
-                label: "Countries",
+                label: 'Countries',
                 value: media.production_countries
                   .map((c: { name: string }) => c.name)
-                  .join(", "),
+                  .join(', '),
               },
               {
-                label: "Languages",
+                label: 'Languages',
                 value: media.spoken_languages
                   .map((l: { name: string }) => l.name)
-                  .join(", "),
+                  .join(', '),
               },
               {
-                label: "Genres",
+                label: 'Genres',
                 value: media.genres
                   .map((g: { name: string }) => g.name)
-                  .join(", "),
+                  .join(', '),
               },
             ].map((item, index, array) => (
               <View
                 key={item.label}
                 style={{
                   padding: 12,
-                  flexDirection: "row",
-                  justifyContent: "space-between",
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
                   borderBottomWidth: index === array.length - 1 ? 0 : 0.5,
-                  borderBottomColor: "rgba(120,120,128,0.2)",
+                  borderBottomColor: 'rgba(120,120,128,0.2)',
                 }}
               >
                 <Text
@@ -355,7 +355,7 @@ async function MediaVideos({ id, type }: { id: string; type: MediaType }) {
       headers: {
         Authorization: `Bearer ${process.env.TMDB_READ_ACCESS_TOKEN}`,
       },
-    }
+    },
   );
   const videos = await response.json();
 
@@ -377,7 +377,7 @@ async function MediaCast({ id, type }: { id: string; type: MediaType }) {
       headers: {
         Authorization: `Bearer ${process.env.TMDB_READ_ACCESS_TOKEN}`,
       },
-    }
+    },
   );
   const credits = await response.json();
 
@@ -414,13 +414,14 @@ async function SimilarMedia({ id, type }: { id: string; type: MediaType }) {
       headers: {
         Authorization: `Bearer ${process.env.TMDB_READ_ACCESS_TOKEN}`,
       },
-    }
+    },
   );
   const similar = await response.json();
+  const results = similar.results ?? [];
 
   return (
     <HorizontalList title="More Like This">
-      {similar.results.slice(0, 10).map((media: any) => (
+      {results.slice(0, 10).map((media: any) => (
         <MediaCard key={media.id} media={media} type={type} />
       ))}
     </HorizontalList>
@@ -431,12 +432,12 @@ function MovieSkeleton() {
   return (
     <View style={{ gap: 16 }}>
       <View
-        style={{ height: 300, backgroundColor: "rgba(120,120,128,0.12)" }}
+        style={{ height: 300, backgroundColor: 'rgba(120,120,128,0.12)' }}
       />
       <View
         style={{
           height: 100,
-          backgroundColor: "rgba(120,120,128,0.12)",
+          backgroundColor: 'rgba(120,120,128,0.12)',
           margin: 16,
         }}
       />
@@ -451,7 +452,7 @@ function ListSkeleton() {
         style={{
           height: 24,
           width: 200,
-          backgroundColor: "rgba(120,120,128,0.12)",
+          backgroundColor: 'rgba(120,120,128,0.12)',
           marginBottom: 12,
           marginHorizontal: 16,
         }}
@@ -467,7 +468,7 @@ function ListSkeleton() {
             style={{
               width: 140,
               height: 210,
-              backgroundColor: "rgba(120,120,128,0.12)",
+              backgroundColor: 'rgba(120,120,128,0.12)',
               marginHorizontal: 4,
               borderRadius: 8,
             }}

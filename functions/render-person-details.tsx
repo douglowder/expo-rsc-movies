@@ -1,11 +1,11 @@
-"use server";
+'use server';
 
-import TouchableBounce from "@/components/ui/TouchableBounce";
-import { Link, Stack } from "expo-router";
-import { Text, View, ScrollView, TouchableOpacity } from "react-native";
-import * as AC from "@bacons/apple-colors";
-import ShowMore from "@/components/ShowMore";
-import { Image } from "expo-image";
+import TouchableBounce from '@/components/ui/TouchableBounce';
+import { Link, Stack } from 'expo-router';
+import { Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import * as AC from '@bacons/apple-colors';
+import ShowMore from '@/components/ShowMore';
+import { Image } from 'expo-image';
 
 export async function renderPersonDetails(id: string) {
   // Fetch person details
@@ -23,7 +23,7 @@ export async function renderPersonDetails(id: string) {
       headers: {
         Authorization: `Bearer ${process.env.TMDB_READ_ACCESS_TOKEN}`,
       },
-    }
+    },
   );
   const credits = await creditsResponse.json();
 
@@ -32,7 +32,7 @@ export async function renderPersonDetails(id: string) {
   const actingCredits = credits.cast;
   const crewCredits = credits.crew;
   const directingCredits = crewCredits.filter(
-    (credit: any) => credit.job === "Director"
+    (credit: any) => credit.job === 'Director',
   );
 
   return (
@@ -43,14 +43,14 @@ export async function renderPersonDetails(id: string) {
         style={{
           height: 300,
           backgroundColor: AC.systemGray6,
-          justifyContent: "flex-end",
+          justifyContent: 'flex-end',
           padding: 16,
         }}
       >
         {person.profile_path && (
           <View
             style={{
-              position: "absolute",
+              position: 'absolute',
               top: 0,
               left: 0,
               right: 0,
@@ -63,7 +63,7 @@ export async function renderPersonDetails(id: string) {
                 uri: `https://image.tmdb.org/t/p/original${person.profile_path}`,
               }}
               style={{
-                position: "absolute",
+                position: 'absolute',
                 top: 0,
                 left: 0,
                 right: 0,
@@ -73,11 +73,12 @@ export async function renderPersonDetails(id: string) {
             <View
               style={{
                 // subtle transparent to black gradient at the bottom of the image
-                [process.env.EXPO_OS === "web"
+                [process.env.EXPO_OS === 'web'
                   ? `backgroundImage`
-                  : `experimental_backgroundImage`]: `linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.8))`,
+                  : `experimental_backgroundImage`]:
+                  `linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.8))`,
 
-                position: "absolute",
+                position: 'absolute',
                 bottom: 0,
                 left: 0,
                 right: 0,
@@ -89,8 +90,8 @@ export async function renderPersonDetails(id: string) {
         <Text
           style={{
             fontSize: 32,
-            fontWeight: "bold",
-            color: "white",
+            fontWeight: 'bold',
+            color: 'white',
           }}
         >
           {person.name}
@@ -98,7 +99,7 @@ export async function renderPersonDetails(id: string) {
         <Text
           style={{
             fontSize: 18,
-            color: "rgba(209, 209, 214, 1)",
+            color: 'rgba(209, 209, 214, 1)',
           }}
         >
           {person.known_for_department}
@@ -110,7 +111,7 @@ export async function renderPersonDetails(id: string) {
         <Text
           style={{
             fontSize: 22,
-            fontWeight: "600",
+            fontWeight: '600',
             color: AC.label,
             marginBottom: 12,
           }}
@@ -127,13 +128,13 @@ export async function renderPersonDetails(id: string) {
         >
           {[
             person.birthday && {
-              label: "Born",
+              label: 'Born',
               value: `${new Date(person.birthday).toLocaleDateString()}${
-                person.place_of_birth ? ` in ${person.place_of_birth}` : ""
+                person.place_of_birth ? ` in ${person.place_of_birth}` : ''
               }`,
             },
             person.deathday && {
-              label: "Died",
+              label: 'Died',
               value: new Date(person.deathday).toLocaleDateString(),
             },
           ]
@@ -143,10 +144,10 @@ export async function renderPersonDetails(id: string) {
                 key={item.label + index}
                 style={{
                   padding: 12,
-                  flexDirection: "row",
-                  justifyContent: "space-between",
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
                   borderBottomWidth: index === array.length - 1 ? 0 : 0.5,
-                  borderBottomColor: "rgba(120,120,128,0.2)",
+                  borderBottomColor: 'rgba(120,120,128,0.2)',
                 }}
               >
                 <Text
@@ -196,12 +197,12 @@ export async function renderPersonDetails(id: string) {
         <ScrollView contentContainerStyle={{ padding: 16 }}>
           <View
             style={{
-              flexDirection: "row",
-              flexWrap: "wrap",
-              justifyContent: "space-between",
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'space-between',
             }}
           >
-            {allCredits.map((credit: any, index) => (
+            {allCredits.map((credit: any, index: number) => (
               <Link
                 key={credit.id + index}
                 // @ts-expect-error
@@ -210,7 +211,7 @@ export async function renderPersonDetails(id: string) {
               >
                 <TouchableBounce
                   style={{
-                    width: "48%",
+                    width: '48%',
                     marginBottom: 16,
                   }}
                 >
@@ -218,7 +219,7 @@ export async function renderPersonDetails(id: string) {
                     style={{
                       backgroundColor: AC.secondarySystemBackground,
                       borderRadius: 12,
-                      overflow: "hidden",
+                      overflow: 'hidden',
                     }}
                   >
                     <Image
@@ -230,7 +231,7 @@ export async function renderPersonDetails(id: string) {
                       }}
                       style={{
                         borderRadius: 12,
-                        width: "100%",
+                        width: '100%',
                         height: 200,
                         backgroundColor: AC.systemGray5,
                       }}
@@ -240,7 +241,7 @@ export async function renderPersonDetails(id: string) {
                         numberOfLines={2}
                         style={{
                           fontSize: 14,
-                          fontWeight: "500",
+                          fontWeight: '500',
                           color: AC.label,
                         }}
                       >

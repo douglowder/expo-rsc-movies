@@ -1,12 +1,12 @@
-"use server";
+'use server';
 
-import { ScrollView, Text, View } from "react-native";
-import React from "react";
-import * as AC from "@bacons/apple-colors";
-import { Link } from "expo-router";
-import TouchableBounce from "@/components/ui/TouchableBounce";
-import { FadeIn } from "@/components/ui/FadeIn";
-import { Image } from "expo-image";
+import { ScrollView, Text, View } from 'react-native';
+import React from 'react';
+import * as AC from '@bacons/apple-colors';
+import { Link } from 'expo-router';
+import TouchableBounce from '@/components/ui/TouchableBounce';
+import { FadeIn } from '@/components/ui/FadeIn';
+import { Image } from 'expo-image';
 
 const POSTER_WIDTH = 140;
 const POSTER_HEIGHT = 210;
@@ -34,7 +34,7 @@ const MediaCard = ({
   title: string;
   rating: number;
   posterPath: string | null;
-  type: "movie" | "show" | "person";
+  type: 'movie' | 'show' | 'person';
 }) => (
   <Link key={id} href={`/${type}/${id}`} asChild>
     <TouchableBounce style={{ marginHorizontal: 4 }}>
@@ -43,7 +43,7 @@ const MediaCard = ({
           width: POSTER_WIDTH,
           backgroundColor: AC.secondarySystemBackground,
           borderRadius: 12,
-          overflow: "hidden",
+          overflow: 'hidden',
         }}
       >
         <View
@@ -57,7 +57,7 @@ const MediaCard = ({
           {posterPath && (
             <Image
               source={{ uri: `https://image.tmdb.org/t/p/w300${posterPath}` }}
-              style={{ borderRadius: 12, width: "100%", height: "100%" }}
+              style={{ borderRadius: 12, width: '100%', height: '100%' }}
               transition={200}
             />
           )}
@@ -67,7 +67,7 @@ const MediaCard = ({
             numberOfLines={2}
             style={{
               fontSize: 14,
-              fontWeight: "500",
+              fontWeight: '500',
               color: AC.label,
               marginBottom: 4,
             }}
@@ -106,7 +106,7 @@ const PersonCard = ({
           width: POSTER_WIDTH,
           backgroundColor: AC.secondarySystemBackground,
           borderRadius: 12,
-          overflow: "hidden",
+          overflow: 'hidden',
         }}
       >
         <View
@@ -120,7 +120,7 @@ const PersonCard = ({
           {profilePath && (
             <Image
               source={{ uri: `https://image.tmdb.org/t/p/w300${profilePath}` }}
-              style={{ borderRadius: 12, width: "100%", height: "100%" }}
+              style={{ borderRadius: 12, width: '100%', height: '100%' }}
               transition={200}
             />
           )}
@@ -130,7 +130,7 @@ const PersonCard = ({
             numberOfLines={2}
             style={{
               fontSize: 14,
-              fontWeight: "500",
+              fontWeight: '500',
               color: AC.label,
               marginBottom: 4,
             }}
@@ -160,7 +160,7 @@ async function MoviesSection({ query }: { query: string }) {
       <Text
         style={{
           fontSize: 20,
-          fontWeight: "600",
+          fontWeight: '600',
           color: AC.label,
           marginBottom: 12,
           paddingHorizontal: 16,
@@ -197,7 +197,7 @@ const ShowsSection = async ({ query }: { query: string }) => {
       <Text
         style={{
           fontSize: 20,
-          fontWeight: "600",
+          fontWeight: '600',
           color: AC.label,
           marginBottom: 12,
           paddingHorizontal: 16,
@@ -234,7 +234,7 @@ const PeopleSection = async ({ query }: { query: string }) => {
       <Text
         style={{
           fontSize: 20,
-          fontWeight: "600",
+          fontWeight: '600',
           color: AC.label,
           marginBottom: 12,
           paddingHorizontal: 16,
@@ -261,77 +261,77 @@ const PeopleSection = async ({ query }: { query: string }) => {
   );
 };
 
-async function getMovies(query = "") {
+async function getMovies(query = '') {
   try {
     const response = await fetch(
       `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
-        query
+        query,
       )}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.TMDB_READ_ACCESS_TOKEN}`,
         },
-      }
+      },
     );
 
     if (!response.ok) {
-      throw new Error("Failed to fetch movies");
+      throw new Error('Failed to fetch movies');
     }
 
     const data = await response.json();
-    return data.results;
+    return data.results ?? [];
   } catch (error) {
-    console.error("Error fetching movies:", error);
+    console.error('Error fetching movies:', error);
     return [];
   }
 }
 
-async function getShows(query = "") {
+async function getShows(query = '') {
   try {
     const response = await fetch(
       `https://api.themoviedb.org/3/search/tv?query=${encodeURIComponent(
-        query
+        query,
       )}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.TMDB_READ_ACCESS_TOKEN}`,
         },
-      }
+      },
     );
 
     if (!response.ok) {
-      throw new Error("Failed to fetch shows");
+      throw new Error('Failed to fetch shows');
     }
 
     const data = await response.json();
     return data.results;
   } catch (error) {
-    console.error("Error fetching shows:", error);
+    console.error('Error fetching shows:', error);
     return [];
   }
 }
 
-async function getPeople(query = "") {
+async function getPeople(query = '') {
   try {
     const response = await fetch(
       `https://api.themoviedb.org/3/search/person?query=${encodeURIComponent(
-        query
+        query,
       )}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.TMDB_READ_ACCESS_TOKEN}`,
         },
-      }
+      },
     );
 
     if (!response.ok) {
-      throw new Error("Failed to fetch people");
+      throw new Error('Failed to fetch people');
     }
 
     const data = await response.json();
-    return data.results;
+    return data.results ?? [];
   } catch (error) {
-    console.error("Error fetching people:", error);
+    console.error('Error fetching people:', error);
     return [];
   }
 }
@@ -341,24 +341,25 @@ export async function renderTrendingMedia({
   timeWindow,
   size,
 }: {
-  type: "movie" | "tv";
-  timeWindow: "day" | "week";
+  type: 'movie' | 'tv';
+  timeWindow: 'day' | 'week';
   size: number;
 }) {
   const response = await fetch(
     `https://api.themoviedb.org/3/trending/${type}/${timeWindow}`,
     {
       headers: {
-        accept: "application/json",
+        accept: 'application/json',
         Authorization: `Bearer ${process.env.TMDB_READ_ACCESS_TOKEN}`,
       },
-    }
+    },
   );
   const data = await response.json();
-  const shows = data.results.slice(0, size);
+  const results = data.results ?? [];
+  const shows = results.slice(0, size);
   return (
     <TrendingSection
-      title={type === "tv" ? "TV Shows" : "Movies"}
+      title={type === 'tv' ? 'TV Shows' : 'Movies'}
       items={shows}
     />
   );
@@ -370,9 +371,9 @@ function TrendingSection({ title, items }: { title: string; items: any[] }) {
       <>
         <View
           style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
             marginBottom: 12,
             paddingHorizontal: 16,
           }}
@@ -380,7 +381,7 @@ function TrendingSection({ title, items }: { title: string; items: any[] }) {
           <Text
             style={{
               fontSize: 20,
-              fontWeight: "600",
+              fontWeight: '600',
               color: AC.label,
             }}
           >
@@ -410,7 +411,7 @@ function TrendingSection({ title, items }: { title: string; items: any[] }) {
               title={item.title || item.name}
               rating={item.vote_average}
               posterPath={item.poster_path}
-              type={title === "Movies" ? "movie" : "show"}
+              type={title === 'Movies' ? 'movie' : 'show'}
             />
           ))}
         </ScrollView>
