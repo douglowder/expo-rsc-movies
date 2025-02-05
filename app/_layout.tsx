@@ -1,17 +1,17 @@
-import { Tabs } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-import "react-native-reanimated";
+import { Tabs } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import 'react-native-reanimated';
 
-import ThemeProvider from "@/components/ui/ThemeProvider";
+import ThemeProvider from '@/components/ui/ThemeProvider';
 
-import React from "react";
-import { Platform } from "react-native";
+import React from 'react';
+import { Platform } from 'react-native';
 
-import { HapticTab } from "@/components/HapticTab";
-import { IconSymbol } from "@/components/ui/IconSymbol";
-import TabBarBackground from "@/components/ui/TabBarBackground";
+import { HapticTab } from '@/components/HapticTab';
+import { IconSymbol } from '@/components/ui/IconSymbol';
+import TabBarBackground from '@/components/ui/TabBarBackground';
 
-export { ErrorBoundary } from "expo-router";
+export { ErrorBoundary } from 'expo-router';
 
 export default function RootLayout() {
   return (
@@ -25,7 +25,7 @@ export default function RootLayout() {
           tabBarStyle: Platform.select({
             ios: {
               // Use a transparent background on iOS to show the blur effect
-              position: "absolute",
+              position: 'absolute',
             },
             default: {},
           }),
@@ -34,7 +34,7 @@ export default function RootLayout() {
         <Tabs.Screen
           name="(index)"
           options={{
-            title: "Search",
+            title: 'Search',
             tabBarIcon: ({ color }) => (
               <IconSymbol size={28} name="magnifyingglass" color={color} />
             ),

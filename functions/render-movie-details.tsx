@@ -2,7 +2,7 @@
 
 import { label } from '@bacons/apple-colors';
 import { Link, Stack } from 'expo-router';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, Text, View, TVEventControl } from 'react-native';
 import TouchableBounce from '@/components/ui/TouchableBounce';
 import React from 'react';
 import { FadeIn } from '@/components/ui/FadeIn';

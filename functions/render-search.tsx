@@ -8,8 +8,9 @@ import TouchableBounce from '@/components/ui/TouchableBounce';
 import { FadeIn } from '@/components/ui/FadeIn';
 import { Image } from 'expo-image';
 
-const POSTER_WIDTH = 140;
-const POSTER_HEIGHT = 210;
+const scale = 1.5;
+const POSTER_WIDTH = 140 * scale;
+const POSTER_HEIGHT = 210 * scale;
 
 export async function renderSearchContents(query: string) {
   return (
@@ -37,12 +38,19 @@ const MediaCard = ({
   type: 'movie' | 'show' | 'person';
 }) => (
   <Link key={id} href={`/${type}/${id}`} asChild>
-    <TouchableBounce style={{ marginHorizontal: 4 }}>
+    <TouchableBounce
+      style={{ marginHorizontal: 4 * scale }}
+      activeOpacity={0.6}
+      tvParallaxProperties={{
+        magnification: 1.02,
+        pressMagnification: 1.1,
+      }}
+    >
       <View
         style={{
           width: POSTER_WIDTH,
           backgroundColor: AC.secondarySystemBackground,
-          borderRadius: 12,
+          borderRadius: 12 * scale,
           overflow: 'hidden',
         }}
       >
@@ -51,7 +59,7 @@ const MediaCard = ({
             width: POSTER_WIDTH,
             height: POSTER_HEIGHT,
             backgroundColor: AC.systemGray5,
-            borderRadius: 12,
+            borderRadius: 12 * scale,
           }}
         >
           {posterPath && (
@@ -62,21 +70,21 @@ const MediaCard = ({
             />
           )}
         </View>
-        <View style={{ padding: 8 }}>
+        <View style={{ padding: 8 * scale }}>
           <Text
             numberOfLines={2}
             style={{
-              fontSize: 14,
+              fontSize: 14 * scale,
               fontWeight: '500',
               color: AC.label,
-              marginBottom: 4,
+              marginBottom: 4 * scale,
             }}
           >
             {title}
           </Text>
           <Text
             style={{
-              fontSize: 12,
+              fontSize: 12 * scale,
               color: AC.systemBlue,
             }}
           >
@@ -100,12 +108,12 @@ const PersonCard = ({
   profilePath: string | null;
 }) => (
   <Link key={id} href={`/person/${id}`} asChild>
-    <TouchableBounce style={{ marginHorizontal: 4 }}>
+    <TouchableBounce style={{ marginHorizontal: 4 * scale }}>
       <View
         style={{
           width: POSTER_WIDTH,
           backgroundColor: AC.secondarySystemBackground,
-          borderRadius: 12,
+          borderRadius: 12 * scale,
           overflow: 'hidden',
         }}
       >
@@ -114,13 +122,17 @@ const PersonCard = ({
             width: POSTER_WIDTH,
             height: POSTER_HEIGHT,
             backgroundColor: AC.systemGray5,
-            borderRadius: 12,
+            borderRadius: 12 * scale,
           }}
         >
           {profilePath && (
             <Image
               source={{ uri: `https://image.tmdb.org/t/p/w300${profilePath}` }}
-              style={{ borderRadius: 12, width: '100%', height: '100%' }}
+              style={{
+                borderRadius: 12 * scale,
+                width: '100%',
+                height: '100%',
+              }}
               transition={200}
             />
           )}
@@ -129,17 +141,17 @@ const PersonCard = ({
           <Text
             numberOfLines={2}
             style={{
-              fontSize: 14,
+              fontSize: 14 * scale,
               fontWeight: '500',
               color: AC.label,
-              marginBottom: 4,
+              marginBottom: 4 * scale,
             }}
           >
             {name}
           </Text>
           <Text
             style={{
-              fontSize: 12,
+              fontSize: 12 * scale,
               color: AC.secondaryLabel,
             }}
           >
@@ -159,11 +171,11 @@ async function MoviesSection({ query }: { query: string }) {
     <View>
       <Text
         style={{
-          fontSize: 20,
+          fontSize: 20 * scale,
           fontWeight: '600',
           color: AC.label,
-          marginBottom: 12,
-          paddingHorizontal: 16,
+          marginBottom: 12 * scale,
+          paddingHorizontal: 16 * scale,
         }}
       >
         Movies
@@ -196,11 +208,11 @@ const ShowsSection = async ({ query }: { query: string }) => {
     <View>
       <Text
         style={{
-          fontSize: 20,
+          fontSize: 20 * scale,
           fontWeight: '600',
           color: AC.label,
-          marginBottom: 12,
-          paddingHorizontal: 16,
+          marginBottom: 12 * scale,
+          paddingHorizontal: 16 * scale,
         }}
       >
         TV Shows
@@ -208,7 +220,7 @@ const ShowsSection = async ({ query }: { query: string }) => {
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 12 }}
+        contentContainerStyle={{ paddingHorizontal: 12 * scale }}
       >
         {shows.map((show: any) => (
           <MediaCard
@@ -233,11 +245,11 @@ const PeopleSection = async ({ query }: { query: string }) => {
     <View>
       <Text
         style={{
-          fontSize: 20,
+          fontSize: 20 * scale,
           fontWeight: '600',
           color: AC.label,
-          marginBottom: 12,
-          paddingHorizontal: 16,
+          marginBottom: 12 * scale,
+          paddingHorizontal: 16 * scale,
         }}
       >
         People
@@ -245,7 +257,7 @@ const PeopleSection = async ({ query }: { query: string }) => {
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 12 }}
+        contentContainerStyle={{ paddingHorizontal: 12 * scale }}
       >
         {people.map((person: any) => (
           <PersonCard
@@ -374,13 +386,13 @@ function TrendingSection({ title, items }: { title: string; items: any[] }) {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-            marginBottom: 12,
-            paddingHorizontal: 16,
+            marginBottom: 12 * scale,
+            paddingHorizontal: 16 * scale,
           }}
         >
           <Text
             style={{
-              fontSize: 20,
+              fontSize: 20 * scale,
               fontWeight: '600',
               color: AC.label,
             }}
@@ -402,7 +414,7 @@ function TrendingSection({ title, items }: { title: string; items: any[] }) {
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: 12 }}
+          contentContainerStyle={{ paddingHorizontal: 12 * scale }}
         >
           {items.map((item) => (
             <MediaCard
