@@ -1,22 +1,25 @@
-import { BodyScrollView } from "@/components/ui/BodyScrollView";
-import { renderPersonDetails } from "@/functions/render-person-details";
-import { Stack, useLocalSearchParams } from "expo-router";
-import React, { useMemo } from "react";
-import { View } from "react-native";
-import * as AC from "@bacons/apple-colors";
+import { BodyScrollView } from '@/components/ui/BodyScrollView';
+import { renderPersonDetails } from '@/functions/render-person-details';
+import { Stack, useLocalSearchParams } from 'expo-router';
+import React, { useMemo } from 'react';
+import { View } from 'react-native';
+import * as AC from '@bacons/apple-colors';
+import { useBackNavigation } from '@/hooks/useBackNavigation';
 
-export { ErrorBoundary } from "expo-router";
+export { ErrorBoundary } from 'expo-router';
 
 export default function PersonDetails() {
   const { id } = useLocalSearchParams<{ id: string }>();
 
   const screen = useMemo(() => renderPersonDetails(id), [id]);
 
+  useBackNavigation();
+
   return (
     <BodyScrollView>
       <Stack.Screen
         options={{
-          title: "Person",
+          title: 'Person',
         }}
       />
       <React.Suspense fallback={<PersonDetailsSkeleton />}>
@@ -33,7 +36,7 @@ function PersonDetailsSkeleton() {
         style={{
           height: 300,
           backgroundColor: AC.systemGray6,
-          justifyContent: "flex-end",
+          justifyContent: 'flex-end',
           padding: 16,
         }}
       >
@@ -86,7 +89,7 @@ function PersonDetailsSkeleton() {
       </View>
 
       <View style={{ flex: 1, marginTop: 16 }}>
-        <View style={{ flexDirection: "row", paddingHorizontal: 16, gap: 16 }}>
+        <View style={{ flexDirection: 'row', paddingHorizontal: 16, gap: 16 }}>
           {[120, 100, 110].map((width, i) => (
             <View
               key={i}
@@ -103,9 +106,9 @@ function PersonDetailsSkeleton() {
         <View
           style={{
             padding: 16,
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
             gap: 16,
           }}
         >
@@ -113,7 +116,7 @@ function PersonDetailsSkeleton() {
             <View
               key={i}
               style={{
-                width: "48%",
+                width: '48%',
                 height: 250,
                 backgroundColor: AC.systemGray5,
                 borderRadius: 12,

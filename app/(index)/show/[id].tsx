@@ -1,21 +1,24 @@
-import { renderMedia } from "@/functions/render-movie-details";
-import { BodyScrollView } from "@/components/ui/BodyScrollView";
-import { Stack, useLocalSearchParams } from "expo-router";
-import React, { useMemo } from "react";
-import { View } from "react-native";
+import { renderMedia } from '@/functions/render-movie-details';
+import { BodyScrollView } from '@/components/ui/BodyScrollView';
+import { Stack, useLocalSearchParams } from 'expo-router';
+import React, { useMemo } from 'react';
+import { View } from 'react-native';
+import { useBackNavigation } from '@/hooks/useBackNavigation';
 
-export { ErrorBoundary } from "expo-router";
+export { ErrorBoundary } from 'expo-router';
 
 export default function ShowDetails() {
   const { id } = useLocalSearchParams<{ id: string }>();
 
-  const screen = useMemo(() => renderMedia(id, "tv"), [id]);
+  const screen = useMemo(() => renderMedia(id, 'tv'), [id]);
+
+  useBackNavigation();
 
   return (
     <BodyScrollView>
       <Stack.Screen
         options={{
-          title: "Show",
+          title: 'Show',
         }}
       />
       <React.Suspense fallback={<MovieSkeleton />}>{screen}</React.Suspense>
@@ -28,7 +31,7 @@ function MovieSkeleton() {
     <View>
       {/* Hero Section */}
       <View
-        style={{ height: 300, backgroundColor: "rgba(120,120,128,0.12)" }}
+        style={{ height: 300, backgroundColor: 'rgba(120,120,128,0.12)' }}
       />
 
       {/* Overview Section */}
@@ -36,24 +39,24 @@ function MovieSkeleton() {
         <View
           style={{
             height: 16,
-            width: "90%",
-            backgroundColor: "rgba(120,120,128,0.12)",
+            width: '90%',
+            backgroundColor: 'rgba(120,120,128,0.12)',
             borderRadius: 4,
           }}
         />
         <View
           style={{
             height: 16,
-            width: "80%",
-            backgroundColor: "rgba(120,120,128,0.12)",
+            width: '80%',
+            backgroundColor: 'rgba(120,120,128,0.12)',
             borderRadius: 4,
           }}
         />
         <View
           style={{
             height: 16,
-            width: "85%",
-            backgroundColor: "rgba(120,120,128,0.12)",
+            width: '85%',
+            backgroundColor: 'rgba(120,120,128,0.12)',
             borderRadius: 4,
           }}
         />
@@ -65,14 +68,14 @@ function MovieSkeleton() {
           style={{
             height: 24,
             width: 80,
-            backgroundColor: "rgba(120,120,128,0.12)",
+            backgroundColor: 'rgba(120,120,128,0.12)',
             borderRadius: 4,
             marginBottom: 12,
           }}
         />
         <View
           style={{
-            backgroundColor: "rgba(120,120,128,0.12)",
+            backgroundColor: 'rgba(120,120,128,0.12)',
             borderRadius: 10,
             gap: 1,
           }}
@@ -82,16 +85,16 @@ function MovieSkeleton() {
               key={i}
               style={{
                 padding: 12,
-                flexDirection: "row",
-                justifyContent: "space-between",
-                backgroundColor: "rgba(120,120,128,0.08)",
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                backgroundColor: 'rgba(120,120,128,0.08)',
               }}
             >
               <View
                 style={{
                   height: 16,
                   width: 100,
-                  backgroundColor: "rgba(120,120,128,0.12)",
+                  backgroundColor: 'rgba(120,120,128,0.12)',
                   borderRadius: 4,
                 }}
               />
@@ -99,7 +102,7 @@ function MovieSkeleton() {
                 style={{
                   height: 16,
                   width: 150,
-                  backgroundColor: "rgba(120,120,128,0.12)",
+                  backgroundColor: 'rgba(120,120,128,0.12)',
                   borderRadius: 4,
                 }}
               />
